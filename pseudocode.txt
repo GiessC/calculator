@@ -1,0 +1,73 @@
+Calculator:
+	calculate():
+		if current_calculation is None:
+			calculation_str = f'{entered_value} ='
+			return
+		calculation_str = f'{current_calculation} {entered_value} ='
+		entered_value = str(current_calculation.perform(float(entered_value)))
+		current_calculation = None
+		
+	add_calculation(operation: Operation):
+		if current_calculation is not None and touched:
+			entered_value = current_calculation.perform(float(entered_value))
+		touched = False
+		current_calculation = new Calculation(entered_value, operation)
+		calculation_str = str(current_calculation)
+		
+	clear_entry():
+		entered_value = '0'
+		
+	clear_all():
+		current_calculation = None
+		entered_value = '0'
+		calculation_str = ''
+	
+	delete():
+		entered_value = entered_value[:-1]
+		if entered_value == '':
+			entered_value = '0'
+	
+	percent():
+		touched = True
+		parsed_value = float(entered_value)
+		entered_value = str(parsed_value / 100.0)
+		if current_calculation is not None:
+			calculation_str = f'{current_calculation} {entered_value}'
+		
+	inverse():
+		touched = True
+		parsed_value = float(entered_value)
+		entered_value = str(1 / parsed_value)
+		if current_calculation is not None:
+			calculation_str = f'{current_calculation} (1/{entered_value})'
+			
+	square():
+		touched = True
+		parsed_value = float(entered_value)
+		entered_value = str(parsed_value ** 2)
+		if current_calculation is not None:
+			calculation_str = f'{current_calculation} ({entered_value}^2)'
+			
+	square_root():
+		touched = True
+		parsed_value = float(entered_value)
+		entered_value = str(parsed_value ** .5)
+		if current_calculation is not None:
+			calculation_str = f'{current_calculation} sqrt({entered_value})'
+			
+	decimal():
+		if '.' in entered_value:
+			touched = True
+			entered_value += '.'
+	
+	negate():
+		touched = True
+		parsed_value = float(entered_value)
+		if parsed_value < 0:
+			entered_value = entered_value[1:]
+		elif parsed_value > 0:
+			entered_value = f'-{entered_value}'
+			
+	number(value: int):
+		touched = True
+		entered_value = float(entered_value + str(value))
