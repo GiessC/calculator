@@ -1,9 +1,13 @@
-from tkinter import Tk
+import os
+from tkinter import PhotoImage, Tk
 
 from CalculatorUI import CalculatorUI
 
 root = Tk()
 root.title('Calculator')
+filepath = os.path.join(os.path.dirname(__file__), 'assets', 'icon.ico')
+root.iconbitmap(filepath)
+root.resizable(False, False)
 
 calculator = CalculatorUI()
 
