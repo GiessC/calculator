@@ -1,11 +1,16 @@
 import os
-from tkinter import PhotoImage, Tk
+import sys
+from tkinter import Tk
 
 from CalculatorUI import CalculatorUI
 
 root = Tk()
 root.title('Calculator')
-filepath = os.path.join(os.path.dirname(__file__), 'assets', 'icon.ico')
+try:
+    base_path = getattr(sys, '_MEIPASS', os.getcwd())
+except Exception:
+    base_path = os.path.abspath('.')
+filepath = os.path.join(base_path, 'assets', 'icon.ico')
 root.iconbitmap(filepath)
 root.resizable(False, False)
 
